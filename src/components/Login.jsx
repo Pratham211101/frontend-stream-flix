@@ -23,7 +23,7 @@ function Login() {
             if (session) {
                 const userData = await getCurrentUser();
                 if (userData) dispatch(authLogin(userData));
-                navigate('/');
+                navigate('/navbar');
             }
         } catch (error) {
             setError(error.message);
@@ -40,7 +40,7 @@ function Login() {
                 </div>
                 <h2 className="text-3xl font-bold mb-2 text-center">Sign In</h2>
                 <p className="text-gray-600 text-center mb-6">
-                    Don&apos;t have an account?{' '}
+                    Dont have an account?{' '}
                     <Link
                         to="/signup"
                         className="font-medium text-blue-600 hover:underline"

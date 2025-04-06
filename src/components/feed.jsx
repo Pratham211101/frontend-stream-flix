@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 
 const feed = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+    <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
 
       <Link to={`video/20/4521`}>
         <div className='cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105'>

@@ -7,4 +7,6 @@ import Sidebar from './Sidebar';
 import AuthLayout from './AuthLayout';
 import Input from './Input';
 import Signup from './Signup';
-export {feed, Login, Navbar, PlayVideo, Recommended, Sidebar,AuthLayout,Input,Signup};
+import LogoutBtn from './LogoutBtn';
+import ProfileCard from './ProfileCard';
+export {feed, Login, Navbar, PlayVideo, Recommended, Sidebar,AuthLayout,Input,Signup,LogoutBtn,ProfileCard};

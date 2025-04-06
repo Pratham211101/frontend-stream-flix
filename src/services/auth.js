@@ -1,8 +1,8 @@
-const API_BASE_URL = "http://localhost:8080/api/v1/users";
+
 
 export const loginUser = async ({ username, email, password }) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/login`, {
+    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const loginUser = async ({ username, email, password }) => {
 
 export const getCurrentUser = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/current-user`, {
+    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/current-user`, {
       method: "GET",
       credentials: "include",
     });
@@ -44,7 +44,7 @@ export const getCurrentUser = async () => {
 
 export const logoutUser = async () => {
   try {
-    const res = await fetch(`${API_BASE_URL}/logout`, {
+    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -60,7 +60,7 @@ export const logoutUser = async () => {
 };
 export const createUser = async (formData) => {
   try {
-    const res = await fetch(`${API_BASE_URL}/register`, {
+    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/register`, {
       method: "POST",
       credentials: "include", // important for cookies/sessions
       body: formData,         // formData automatically sets correct headers

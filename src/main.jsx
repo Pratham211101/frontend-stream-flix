@@ -1,47 +1,11 @@
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import './index.css'
-// import App from './App.jsx'
-// import { BrowserRouter, createBrowserRouter,RouterProvider } from 'react-router-dom'
-// import { Login } from './Pages/index'
-// import { AuthLayout } from './components/index.js'
-// import { Provider } from 'react-redux'
-// import store from './store/store'
-// const router=createBrowserRouter([
-//   {
-//     path:"/",
-//     element:<App/>,
-//     children:[
-//       {
-//         path:"/",
-//         element:<App/>
-//       },
-//       {
-//         path:"/login",
-//         element:(
-//           <AuthLayout authentication={false}>
-//             <Login/>
-//           </AuthLayout>
-//         )
-//       }
-//     ]
-//   }
-  
-// ])
-// createRoot(document.getElementById('root')).render(
-//   <StrictMode>
-//     <Provider store={store}>
-//       <RouterProvider router={router} />
-//     </Provider>
-//   </StrictMode>,
-// )
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App.jsx';
 import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './Pages/index';
-import { AuthLayout } from './components/index.js';
+import { AuthLayout,LogoutBtn,Navbar } from './components/index.js';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Home from './Pages/Home';
@@ -76,8 +40,19 @@ const router = createBrowserRouter([
             <Signup />
           </AuthLayout>
         )
-      }
+      },{
+        path:'logout',
+        element:<LogoutBtn/>
+       },
+       // {
+      //   path:'navbar',
+      //   element:<Navbar/>
+      // }
     ]
+  },
+  {
+    path: '/navbar',
+    element: <Navbar />
   }
 ]);
 
