@@ -7,22 +7,24 @@ import {LogoutBtn,ProfileCard} from './index';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { SideBar } from './index';
 
 
-const Navbar = ({setSidebar}) => {
+const Navbar = () => {
   const auth = useSelector((state) => state.auth); // assuming your user is stored here
   const isLoggedIn = auth?.userData;
   const navigate = useNavigate()
   const [showProfileCard, setShowProfileCard] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     
     <nav className='fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 py-2 bg-white shadow-md'>
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-4 relative'>
             <MenuIcon 
-            className="h-6 w-6 cursor-pointer"
-            onClick={() => setSidebar(prev => !prev)}
+            className="h-6 w-6 cursor-pointer relative z-20"
+            onClick={() =>setSidebarOpen(prev => !prev)}
             />
-            <img className='ml-8 h-8 cursor-pointer scale-350' src={logo} alt='logo'/>
+            <img className='ml-8 h-8 cursor-pointer scale-350 relative z-10' src={logo} alt='logo'/>
         </div>
 
         <div className='flex items-center border border-gray-300 rounded-full px-4 py-2 w-full max-w-md'>
@@ -60,6 +62,7 @@ const Navbar = ({setSidebar}) => {
           
         </div>
         {showProfileCard && <ProfileCard onClose={() => setShowProfileCard(false)} />}
+        <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
     </nav>
  )
 }

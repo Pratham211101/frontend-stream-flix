@@ -5,7 +5,7 @@ import './index.css';
 import App from './App.jsx';
 import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './Pages/index';
-import { AuthLayout,LogoutBtn,Navbar } from './components/index.js';
+import { AuthLayout,LogoutBtn,Navbar, SideBar } from './components/index.js';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Home from './Pages/Home';
@@ -44,10 +44,10 @@ const router = createBrowserRouter([
         path:'logout',
         element:<LogoutBtn/>
        },
-       // {
-      //   path:'navbar',
-      //   element:<Navbar/>
-      // }
+       {
+        path:'sidebar',
+        element:<SideBar/>
+      }
     ]
   },
   {

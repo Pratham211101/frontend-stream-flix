@@ -2,7 +2,7 @@
 
 export const loginUser = async ({ username, email, password }) => {
   try {
-    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/login`, {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,10 +11,18 @@ export const loginUser = async ({ username, email, password }) => {
       body: JSON.stringify({ username, email, password }),
     });
 
-    const result = await res.json();
+    const text = await res.text();
+
+    // Check if response is JSON
+    let result;
+    try {
+      result = JSON.parse(text);
+    } catch {
+      throw new Error("Invalid response from server.");
+    }
 
     if (!res.ok) {
-      throw new Error(result.message || "Login failed");
+    throw new Error(result?.message || "Login failed");
     }
 
     return result.data;
@@ -25,7 +33,7 @@ export const loginUser = async ({ username, email, password }) => {
 
 export const getCurrentUser = async () => {
   try {
-    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/current-user`, {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/current-user`, {
       method: "GET",
       credentials: "include",
     });
@@ -44,7 +52,7 @@ export const getCurrentUser = async () => {
 
 export const logoutUser = async () => {
   try {
-    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/logout`, {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -60,7 +68,7 @@ export const logoutUser = async () => {
 };
 export const createUser = async (formData) => {
   try {
-    const res = await fetch(`${import.meta.env.API_BASE_URL}/users/register`, {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/register`, {
       method: "POST",
       credentials: "include", // important for cookies/sessions
       body: formData,         // formData automatically sets correct headers
