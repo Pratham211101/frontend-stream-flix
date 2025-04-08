@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getAllVideos } from '../services/video';
 import { Link } from 'react-router-dom';
 
-const Feed = () => {
+const Feed = ({ sidebarOpen }) => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -26,23 +26,34 @@ const Feed = () => {
   if (error) return <p className="mt-16 text-center text-red-500">{error}</p>;
 
   return (
-    <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-      {videos.map((video) => (
-        <Link to={`/video/${video._id}`} key={video._id}>
-          <div className="cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105">
-            <img
-              src={video.thumbnail || '/default-thumbnail.jpg'}
-              alt={video.title}
-              className="shadow-2xl rounded-sm w-full h-48 object-cover"
-            />
-            <h2 className="text-lg font-semibold line-clamp-2 mt-2">{video.title}</h2>
-            <h3 className="text-sm text-gray-600 dark:text-gray-400">{video.owner?.fullname || 'Unknown Channel'}</h3>
-            <p className="text-sm text-gray-500">
-              {video.views} views &bull; {new Date(video.createdAt).toLocaleDateString()}
-            </p>
-          </div>
-        </Link>
-      ))}
+    <div className="p-4 transition-all duration-300">
+      <div
+        className="grid gap-6 justify-items-center"
+        style={{
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        }}
+      >
+        {videos.map((video) => (
+          <Link to={`/video/${video._id}`} key={video._id}>
+            <div className="w-[300px]">
+              <div className="aspect-video rounded-xl overflow-hidden">
+                <img
+                  src={video.thumbnail || '/default-thumbnail.jpg'}
+                  alt={video.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h2 className="text-md font-semibold line-clamp-2 mt-2">{video.title}</h2>
+              <h3 className="text-sm text-gray-600 dark:text-gray-400">
+                {video.owner?.fullname || 'Unknown Channel'}
+              </h3>
+              <p className="text-sm text-gray-500">
+                {video.views} views • {new Date(video.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
