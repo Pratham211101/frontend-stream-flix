@@ -7,14 +7,10 @@ import {Navbar} from './components/index';
 
 
 
-const App = () => {
-  const authStatus = useSelector((state) => state.auth.status);
-
-
+const App = ({children}) => {
   return (
     <div>
-      {authStatus && <Navbar />}
-      <Outlet />
+      {children}
     </div>
   );
 };

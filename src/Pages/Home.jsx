@@ -1,11 +1,13 @@
 import React from 'react'
 import SideBar from '@/components/SideBar'
 import Feed from '@/components/feed'
-const Home = ({sidebar}) => {
+import { useOutletContext } from 'react-router-dom';
+const Home = () => {
+  const { sidebarOpen, setSidebarOpen } = useOutletContext();
   return (
     <>
-      <SideBar sidebar={sidebar} />
-      <div className={`transition-all duration-300 p-4 ${sidebar ? "ml-64 w-[calc(100%-16rem)]" : "w-full"}`}>
+      <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <div className={`transition-all duration-300 p-4 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
         <Feed/>
       </div>
     </>

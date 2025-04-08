@@ -23,7 +23,7 @@ function Login() {
             if (session) {
                 const userData = await getCurrentUser();
                 if (userData) dispatch(authLogin(userData));
-                navigate('/navbar');
+                navigate('/');
             }
         } catch (error) {
             setError(error.message);

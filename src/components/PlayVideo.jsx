@@ -1,75 +1,88 @@
-import React from 'react'
-import video1 from '../assets/video.mp4'
-import jack from '../assets/jack.png'
-import user_profile from '../assets/user_profile.jpg'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { getVideoById } from '../services/video'
 import { Download, Share2, ThumbsDown, ThumbsUp } from 'lucide-react'
 import { Button } from './ui/button'
 
 const PlayVideo = () => {
+  const { id } = useParams()
+  const [video, setVideo] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchVideo = async () => {
+      try {
+        const data = await getVideoById(id)
+        setVideo(data)
+      } catch (error) {
+        console.error('Error fetching video:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchVideo()
+  }, [id])
+  console.log(id);
+  
+
+  if (loading) return <p className="text-center mt-10">Loading video...</p>
+  if (!video) return <p className="text-center mt-10 text-red-500">Video not found.</p>
+
   return (
     <div className="max-w-4xl mx-auto p-4 mt-16">
-        {/* Video Player */}
-        <video src={video1} controls autoPlay muted className="w-full rounded-lg shadow-md"/>
-        {/* Video Actions */}
-        <h3 className="mt-4 text-xl font-semibold"> Video 1</h3>
-        <div className="flex justify-between items-center mt-2">
-            <p className="text-gray-600">1.2M views • 2 days ago</p>
-            <div className="flex space-x-4">
-                <Button className="gap-2 bg-gray-200 px-4 py-2 rounded-full text-gray-700 hover:bg-gray-300 transition flex items-center cursor-pointer">
-                    <ThumbsUp className=" w-5 h-5 text-gray-600" />
-                     125
-                </Button>
-                <Button className="gap-2 bg-gray-200 px-4 py-2 rounded-full text-gray-700 hover:bg-gray-300 transition flex items-center cursor-pointer">
-                    <ThumbsDown className="w-5 h-5 text-gray-600"/>
-                    50
-                </Button>
-                <Button className="gap-2 bg-gray-200 px-4 py-2 rounded-full text-gray-700 hover:bg-gray-300 transition flex items-center cursor-pointer">
-                    <Share2 className="w-5 h-5 text-gray-600"/>
-                    Share
-                </Button>
-                <Button className="gap-2 bg-gray-200 px-4 py-2 rounded-full text-gray-700 hover:bg-gray-300 transition flex items-center cursor-pointer">
-                    <Download className="w-5 h-5 text-gray-600"/>
-                    Download
-                </Button>
-            </div>
-        </div>
-        <hr className="my-4 border-gray-300"/>
-        {/* Channel Info */}
-        <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <img src={jack} alt="" className="w-12 h-12 rounded-full" />
-              <div>
-                <p className="font-semibold">Channel1</p>
-                <span className="text-sm text-gray-600">1M Subscribers</span>
-              </div>
-            </div>
-            <Button className="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700">
-              Subscribe
-            </Button>
-        </div>
+      <video
+        src={video.videoFile}
+        controls
+        autoPlay
+        className="w-full rounded-lg shadow-md"
+      />
 
-        {/* Video Description */}
-        <div className="mt-4 bg-gray-100 p-4 rounded-lg">
-            <p className="text-gray-700">Channel that makes learning easy</p>
-            <p className="text-gray-700">Subscribe for more</p>
-        </div>
-        <hr className="my-4 border-gray-300" />
+      <h3 className="mt-4 text-xl font-semibold">{video.title}</h3>
 
-        {/* Comments Section */}
-        <h4 className="text-lg font-semibold">130 comments</h4>
-        <div className="mt-4 flex space-x-4">
-            <img src={user_profile} alt="" className="w-10 h-10 rounded-full" />
-                <div>
-                    <h3 className="font-semibold">Jack <span className="text-gray-500 text-sm">• 1 day ago</span></h3>
-                    <p className="text-gray-700">Sample comment Lorem ipsum dolor sit amet consectetur adipisicingelit. Labore esse excepturi harum perspiciatis suscipit reprehenderit neque alias adipisci.</p>
-                    <div className="flex items-center space-x-2 mt-1">
-                        <ThumbsUp className="w-4 h-4 text-gray-600 cursor-pointer" />
-                        <span className="text-sm text-gray-600">244</span>
-                        <ThumbsDown className="w-4 h-4 text-gray-600 cursor-pointer" />
-                    </div>
-                </div>
+      <div className="flex justify-between items-center mt-2">
+        <p className="text-gray-600">
+          {video.views} views • {new Date(video.createdAt).toLocaleDateString()}
+        </p>
+        <div className="flex space-x-4">
+          <Button className="gap-2 bg-gray-200 text-gray-700 hover:bg-gray-300 flex items-center">
+            <ThumbsUp className="w-5 h-5 text-gray-600" />
+            125
+          </Button>
+          <Button className="gap-2 bg-gray-200 text-gray-700 hover:bg-gray-300 flex items-center">
+            <ThumbsDown className="w-5 h-5 text-gray-600" />
+            50
+          </Button>
+          <Button className="gap-2 bg-gray-200 text-gray-700 hover:bg-gray-300 flex items-center">
+            <Share2 className="w-5 h-5 text-gray-600" />
+            Share
+          </Button>
+          <Button className="gap-2 bg-gray-200 text-gray-700 hover:bg-gray-300 flex items-center">
+            <Download className="w-5 h-5 text-gray-600" />
+            Download
+          </Button>
         </div>
-    </div>  
+      </div>
+
+      <hr className="my-4 border-gray-300" />
+
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-4">
+          <img src={video.owner.avatar} alt="avatar" className="w-12 h-12 rounded-full" />
+          <div>
+            <p className="font-semibold">{video.owner.fullname}</p>
+            <span className="text-sm text-gray-600">@{video.owner.username}</span>
+          </div>
+        </div>
+        <Button className="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700">
+          Subscribe
+        </Button>
+      </div>
+
+      <div className="mt-4 bg-gray-100 p-4 rounded-lg">
+        <p className="text-gray-700">{video.description}</p>
+      </div>
+    </div>
   )
 }
 

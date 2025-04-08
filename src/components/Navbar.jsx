@@ -10,21 +10,20 @@ import { useState } from 'react';
 import { SideBar } from './index';
 
 
-const Navbar = () => {
+const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
   const auth = useSelector((state) => state.auth); // assuming your user is stored here
   const isLoggedIn = auth?.userData;
   const navigate = useNavigate()
   const [showProfileCard, setShowProfileCard] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     
     <nav className='fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 py-2 bg-white shadow-md'>
         <div className='flex items-center gap-4 relative'>
             <MenuIcon 
             className="h-6 w-6 cursor-pointer relative z-20"
-            onClick={() =>setSidebarOpen(prev => !prev)}
+            onClick={() =>setSidebarOpen(!sidebarOpen)}
             />
-            <img className='ml-8 h-8 cursor-pointer scale-350 relative z-10' src={logo} alt='logo'/>
+            <img className='ml-8 h-8 cursor-pointer scale-350 relative z-10' src={logo} alt='logo' onClick={()=>navigate('/')}/>
         </div>
 
         <div className='flex items-center border border-gray-300 rounded-full px-4 py-2 w-full max-w-md'>
@@ -35,7 +34,7 @@ const Navbar = () => {
 
 
         <div className="flex items-center gap-4">
-          {isLoggedIn && <UploadIcon className='h-6 w-6 cursor-pointer text-gray-700'/>}
+          {isLoggedIn && <UploadIcon className='h-6 w-6 cursor-pointer text-gray-700' onClick={() => navigate('/upload-video')}/>}
           {/* <MoreVerticalIcon className='cursor-pointer text-gray-700'/> */}
           {isLoggedIn && <Bell className='cursor-pointer text-gray-700'/>}
           {isLoggedIn && <LogoutBtn />}
@@ -62,7 +61,6 @@ const Navbar = () => {
           
         </div>
         {showProfileCard && <ProfileCard onClose={() => setShowProfileCard(false)} />}
-        <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
     </nav>
  )
 }

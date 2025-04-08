@@ -9,5 +9,6 @@ import Input from './Input';
 import Signup from './Signup';
 import LogoutBtn from './LogoutBtn';
 import ProfileCard from './ProfileCard';
+import VideoUploadForm from './VideoUploader';
 
-export {feed, Login, Navbar, PlayVideo, Recommended, SideBar,AuthLayout,Input,Signup,LogoutBtn,ProfileCard};
+export {feed, Login, Navbar, PlayVideo, Recommended, SideBar,AuthLayout,Input,Signup,LogoutBtn,ProfileCard, VideoUploadForm};
