@@ -2,11 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { getAllVideos } from '../services/video';
 import { Link } from 'react-router-dom';
 
-const Feed = ({ sidebarOpen }) => {
+const Feed = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  const getTimeAgo = (dateString) => {
+    const now = new Date();
+    const past = new Date(dateString);
+    const diffInMs = now - past;
+  
+    const seconds = Math.floor(diffInMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+  
+    if (seconds < 60) return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+    if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+    if (months < 12) return `${months} month${months !== 1 ? 's' : ''} ago`;
+  
+    return `${years} year${years !== 1 ? 's' : ''} ago`;
+  };
+  
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -35,7 +56,7 @@ const Feed = ({ sidebarOpen }) => {
       >
         {videos.map((video) => (
           <Link to={`/video/${video._id}`} key={video._id}>
-            <div className="w-[300px]">
+            <div className="w-[300px] transform transition-transform duration-300 hover:scale-105">
               <div className="aspect-video rounded-xl overflow-hidden">
                 <img
                   src={video.thumbnail || '/default-thumbnail.jpg'}
@@ -48,7 +69,7 @@ const Feed = ({ sidebarOpen }) => {
                 {video.owner?.fullname || 'Unknown Channel'}
               </h3>
               <p className="text-sm text-gray-500">
-                {video.views} views • {new Date(video.createdAt).toLocaleDateString()}
+                {video.views} views • {getTimeAgo(video.createdAt)}
               </p>
             </div>
           </Link>

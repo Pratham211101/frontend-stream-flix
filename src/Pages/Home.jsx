@@ -11,7 +11,7 @@ const Home = () => {
       <SideBar sidebarOpen={sidebarOpen} />
       <main
         className={`transition-all duration-300 ${
-          sidebarOpen ? 'ml-64' : 'ml-20'
+          sidebarOpen ? 'ml-64' : ''
         } w-full`}
       >
         <Feed sidebarOpen={sidebarOpen} />

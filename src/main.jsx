@@ -72,7 +72,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <AuthLayoutPage />, // ❌ No Navbar
+    element: <AuthLayoutPage authentication={false}/>, // ❌ No Navbar
     children: [
       {
         path: 'login',
