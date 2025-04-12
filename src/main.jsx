@@ -15,7 +15,7 @@ import VidUploadPage from './Pages/VidUploadPage';
 import MainLayout from './Layouts/MainLayout';
 import AuthLayoutPage from './Layouts/AuthLayoutPage';
 import Subscriptions from './components/Subscriptions';
-import History from './components/history';
+import History from './components/History';
 import Playlists from './components/Playlists';
 import YourVideos from './components/YourVideos';
 import WatchLater from './components/WatchLater';
