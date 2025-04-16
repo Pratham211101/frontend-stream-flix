@@ -2,10 +2,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './App.jsx';
-import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Login } from './Pages/index';
-import { AuthLayout,LogoutBtn,Navbar, SideBar } from './components/index.js';
+
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Home from './Pages/Home';
@@ -15,9 +15,9 @@ import VidUploadPage from './Pages/VidUploadPage';
 import MainLayout from './Layouts/MainLayout';
 import AuthLayoutPage from './Layouts/AuthLayoutPage';
 import Subscriptions from './components/Subscriptions';
-import History from './components/History';
-import Playlists from './components/Playlists';
-import YourVideos from './components/YourVideos';
+import HistoryPage from './Pages/HistoryPage';
+import Playlists from './components/playlist/Playlists';
+import YourVideosPage from './Pages/YourVideoPage';
 import WatchLater from './components/WatchLater';
 import LikedVideos from './components/LikedVideos';
 import Settings from './components/Settings';
@@ -50,14 +50,14 @@ const router = createBrowserRouter([
       },
       {
         path:'history',
-        element:<History/>
+        element:<HistoryPage/>
       },{
         path:'playlists',
         element:<Playlists/>
 
       },{
         path:"your-videos",
-        element:<YourVideos/>
+        element:<YourVideosPage/>
       },{
         path:'watch-later',
         element:<WatchLater/>

@@ -90,3 +90,17 @@ export const togglePublishStatus = async (videoId) => {
     throw error;
   }
 };
+
+export const getAllUserVideos = async (userId) => {
+  try {
+    const res=await fetch(`${BASE_URL}/videos/user/${userId}`,{
+      method:'GET',
+      credentials:'include'
+    })
+    const result  = await res.json()
+    if (!res.ok) throw new Error(result.message || 'Failed to fetch user videos');
+    return result.data
+  } catch (error) {
+    throw error;
+  }
+}
